@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">EsSalud</string>
-    <string name="dni">DNI</string>
-    <string-array name="documents_array">
-        <item>DNI</item>
-        <item>CE</item>
-    </string-array>
+    <string name="document_number">Número de documento</string>
+    <string name="document_type">Documento</string>
+    <string name="document_type_0">Documento Nacional de Identidad</string>
+    <string name="document_type_1">Carnet de Extranjería</string>
+    <string name="first_last_name">Apellido paterno</string>
+    <string name="second_last_name">Apellido materno</string>
+    <string name="names">Nombres</string>
+    <string name="birth_date">Fecha de nacimiento</string>
 </resources>
