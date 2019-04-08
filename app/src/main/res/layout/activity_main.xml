@@ -12,7 +12,7 @@
         style="@style/Widget.MaterialComponents.Button.IconButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="hola"
+        android:text="adios"
         app:icon="@drawable/ic_launcher_foreground" />
 
 </LinearLayout>
