@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">EsSalud</string>
+    <string name="dni">DNI</string>
+    <string-array name="documents_array">
+        <item>DNI</item>
+        <item>CE</item>
+    </string-array>
+</resources>
