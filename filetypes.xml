@@ -1,0 +1,9 @@
+<application>
+  <component name="FileTypeManager" version="17">
+    <extensionMap>
+      <mapping pattern="level16" type="PLAIN_TEXT" />
+      <mapping pattern="unity default resources" type="PLAIN_TEXT" />
+      <mapping pattern="unity_builtin_extra" type="PLAIN_TEXT" />
+    </extensionMap>
+  </component>
+</application>
