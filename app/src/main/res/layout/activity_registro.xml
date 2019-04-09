@@ -4,32 +4,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context=".RegistroActivity">
 
 
-    <LinearLayout
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Spinner
+        android:alignmentMode="alignBounds"
+        android:columnCount="6"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:rowCount="8"
+        android:useDefaultMargins="true">
+        <!--Lista de documentos-->
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
             android:id="@+id/spnDocument"
-            style="?attr/materialButtonStyle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="3" />
-
+            android:layout_columnSpan="2"
+            android:hint="@string/document_type"
+            android:textAlignment="center"
+            app:met_floatingLabel="normal" />
+        <!--Numero de documento-->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDocumentNumber"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:hint="Número de documento">
+            android:layout_columnSpan="4"
+            android:layout_gravity="fill"
+            android:hint="@string/document_number"
+            app:counterEnabled="true"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+        <!--Apellido paterno-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilUserFirstLastName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_columnSpan="6"
+            android:layout_gravity="fill"
+            android:hint="@string/first_last_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textAutoComplete" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--Apellido materno-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilUserSecondLastName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_columnSpan="6"
+            android:layout_gravity="fill"
+            android:hint="@string/second_last_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textAutoComplete" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--Nombres-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNames"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_columnSpan="6"
+            android:layout_gravity="fill"
+            android:hint="@string/names">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textAutoComplete" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--Fecha de nacimiento-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilBirthDate"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_columnSpan="5"
+            android:layout_gravity="fill"
+            android:hint="@string/birth_date">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="date" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--Boton para Fecha de nacimiento-->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBirthDate"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill_vertical"
+            android:insetLeft="0dp"
+            android:insetTop="5dp"
+            android:insetRight="0dp"
+            android:insetBottom="2dp"
+            app:icon="@drawable/ic_date_range_white_24dp"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="30dp" />
+    </GridLayout>
 </ScrollView>
