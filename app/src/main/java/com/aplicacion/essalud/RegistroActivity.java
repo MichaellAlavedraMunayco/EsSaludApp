@@ -9,29 +9,37 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
-import java.sql.Date;
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ToggleGroup;
 import androidx.fragment.app.DialogFragment;
 
-import static android.app.DatePickerDialog.*;
 import static com.aplicacion.essalud.methods.Methods.showSnackBar;
 
 public class RegistroActivity extends AppCompatActivity {
 
-    private static final String[] DOCUMENTS_TYPE = new String[]{
-            "DNI", "CE"
+    private final String DNI = "DNI";
+    private final String CE = "CE";
+    private final String[] DOCUMENTS_TYPE = new String[]{
+            DNI, CE
     };
 
     private static final String[] MONTHS = new String[]{
@@ -40,10 +48,18 @@ public class RegistroActivity extends AppCompatActivity {
             "Noviembre", "Diciembre"
     };
 
+    private final String URL = "http://aplicaciones007.jne.gob.pe/srop_publico/consulta/afiliado/GetNombresCiudadano?DNI=";
+
     private MaterialBetterSpinner spnDocumentType;
     private TextInputLayout tilDocumentNumber;
-    static TextInputLayout tilBirthDate;
+    private EditText edtDocumentNumber;
+    private EditText edtFirstLastName;
+    private EditText edtSecondLastName;
+    private EditText edtNames;
+    private TextInputLayout tilBirthDate;
     private MaterialButton btnBirthDate;
+    static EditText edtBitrhDate;
+    private ToggleGroup tggGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,25 +70,29 @@ public class RegistroActivity extends AppCompatActivity {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, DOCUMENTS_TYPE);
         spnDocumentType.setAdapter(adapter);
-        // Autoselección de inicio: DNI por defecto
-        spnDocumentType.setText(adapter.getItem(0));
         // Declaración de controles
         tilDocumentNumber = (TextInputLayout) findViewById(R.id.tilDocumentNumber);
+        edtDocumentNumber = (EditText) tilDocumentNumber.getEditText();
+        edtFirstLastName = (EditText) ((TextInputLayout) findViewById(R.id.tilUserFirstLastName)).getEditText();
+        edtSecondLastName = (EditText) ((TextInputLayout) findViewById(R.id.tilUserSecondLastName)).getEditText();
+        edtNames = (EditText) ((TextInputLayout) findViewById(R.id.tilNames)).getEditText();
         tilBirthDate = (TextInputLayout) findViewById(R.id.tilBirthDate);
+        edtBitrhDate = (EditText) tilBirthDate.getEditText();
         btnBirthDate = (MaterialButton) findViewById(R.id.btnBirthDate);
+        tggGender = (ToggleGroup) findViewById(R.id.tggGender);
         // Declaración de datos de inicio de controles
+        spnDocumentType.setText(adapter.getItem(0));
         tilDocumentNumber.setHelperText(getResources().getString(R.string.document_type_0));
         tilDocumentNumber.setCounterMaxLength(8);
+        edtDocumentNumber.requestFocus();
         // Ejecución de acciones cuando se seleccionan items del Spinner
         spnDocumentType.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
@@ -89,7 +109,6 @@ public class RegistroActivity extends AppCompatActivity {
                         tilDocumentNumber.setCounterMaxLength(9);
                         break;
                 }
-                showSnackBar(Snackbar.make(findViewById(android.R.id.content), s.toString(), Snackbar.LENGTH_LONG));
             }
         });
         // Ingreso fecha de nacimiento
@@ -99,7 +118,59 @@ public class RegistroActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DatePickerFragment newFragment = new DatePickerFragment();
                 newFragment.show(getSupportFragmentManager(), "datePicker");
+            }
+        });
+        // Selección de Sexo
+        tggGender.setOnCheckedChangeListener(new ToggleGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(ToggleGroup group, int[] checkedId) {
+                switch (checkedId[0]) {
+                    case R.id.tgbFemale:
+                        break;
+                    case R.id.tgbMale:
+                        break;
+                }
+            }
+        });
+        // Consulta de datos mediante DNI
+        edtDocumentNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String userdni = edtDocumentNumber.getText().toString();
+                if (spnDocumentType.getText().toString().equals(DNI) && userdni.length() == 8) {
+                    RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, URL + userdni, new Response.Listener<String>() {
+
+                        @Override
+                        public void onResponse(String response) {
+                            String fullName = response.toString();
+                            String firstLastName = fullName.split(Pattern.quote("|"))[0];
+                            String secondLastName = fullName.split(Pattern.quote("|"))[1];
+                            String names = fullName.split(Pattern.quote("|"))[2];
+                            edtFirstLastName.setText(firstLastName);
+                            edtSecondLastName.setText(secondLastName);
+                            edtNames.setText(names);
+                            edtBitrhDate.requestFocus();
+                            showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Extracción exitosa", Snackbar.LENGTH_LONG));
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+//                            showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Error", Snackbar.LENGTH_LONG));
+                        }
+                    });
+                    requestQueue.add(stringRequest);
+                }
             }
         });
     }
@@ -121,7 +192,7 @@ public class RegistroActivity extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         public void onDateSet(DatePicker view, int year, int month, int day) {
             String birthday = MONTHS[month] + " " + day + ", " + year;
-            Objects.requireNonNull(tilBirthDate.getEditText()).setText(birthday);
+            edtBitrhDate.setText(birthday);
         }
     }
 }
