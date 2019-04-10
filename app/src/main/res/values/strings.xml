@@ -8,4 +8,8 @@
     <string name="second_last_name">Apellido materno</string>
     <string name="names">Nombres</string>
     <string name="birth_date">Fecha de nacimiento</string>
+    <string name="female">FEMENINO</string>
+    <string name="male">MASCULINO</string>
+    <string name="permission">He leído y acepto los términos y condiciones.</string>
+    <string name="next">Siguiente</string>
 </resources>
