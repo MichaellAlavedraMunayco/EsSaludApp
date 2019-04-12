@@ -154,13 +154,14 @@
         </androidx.appcompat.widget.ToggleGroup>
         <!--Terminos y condiciones-->
         <CheckBox
+            android:id="@+id/chbTerms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_columnSpan="6"
             android:text="@string/permission" />
         <!--Boton Siguiente-->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/material_button"
+            android:id="@+id/btnNext"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

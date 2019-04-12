@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ChatBotActivity">
+
+    <include layout="@layout/app_bar_layout" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="80dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilChatBotMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="550dp"
+                    android:layout_gravity="fill"
+                    android:focusable="false"
+                    android:hint="Mensajes recibidos de ChatBot">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:focusable="false"
+                        android:gravity="start"
+                        android:inputType="textMultiLine" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilClientMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="16dp"
+            android:hint="Escribe un mensaje">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textAutoComplete" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnAudioTextSend"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="16dp"
+            app:srcCompat="@drawable/ic_mic_white_24dp" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

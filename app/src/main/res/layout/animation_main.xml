@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".AnimationMainActivity">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBlink"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Blink" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBounce"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Bounce" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFadein"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="FadeIn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFadeout"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="FadeOut" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLeftToRight"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="LeftToRight" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnMixedAnim"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="MixedAnim" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRightToLeft"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="RightToLeft" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRotate"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Rotate" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSampleAnim"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="SampleAnim" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnZoomin"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="ZoomIn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnZoomout"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="ZoomOut" />
+</LinearLayout>

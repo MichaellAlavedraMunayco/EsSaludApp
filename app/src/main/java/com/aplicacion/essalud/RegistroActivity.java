@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -17,9 +18,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.aplicacion.essalud.models.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.Calendar;
@@ -49,7 +53,7 @@ public class RegistroActivity extends AppCompatActivity {
     };
 
     private final String URL = "http://aplicaciones007.jne.gob.pe/srop_publico/consulta/afiliado/GetNombresCiudadano?DNI=";
-
+    String gender;
     private MaterialBetterSpinner spnDocumentType;
     private TextInputLayout tilDocumentNumber;
     private EditText edtDocumentNumber;
@@ -60,6 +64,11 @@ public class RegistroActivity extends AppCompatActivity {
     private MaterialButton btnBirthDate;
     static EditText edtBitrhDate;
     private ToggleGroup tggGender;
+    private MaterialButton btnNext;
+    private CheckBox chbTerms;
+    // Firebase
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +89,11 @@ public class RegistroActivity extends AppCompatActivity {
         edtBitrhDate = (EditText) tilBirthDate.getEditText();
         btnBirthDate = (MaterialButton) findViewById(R.id.btnBirthDate);
         tggGender = (ToggleGroup) findViewById(R.id.tggGender);
+        chbTerms = (CheckBox) findViewById(R.id.chbTerms);
+        btnNext = (MaterialButton) findViewById(R.id.btnNext);
+        // Creación de instancia Firebase Database
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("USERS");
         // Declaración de datos de inicio de controles
         spnDocumentType.setText(adapter.getItem(0));
         tilDocumentNumber.setHelperText(getResources().getString(R.string.document_type_0));
@@ -121,13 +135,16 @@ public class RegistroActivity extends AppCompatActivity {
             }
         });
         // Selección de Sexo
+
         tggGender.setOnCheckedChangeListener(new ToggleGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(ToggleGroup group, int[] checkedId) {
                 switch (checkedId[0]) {
                     case R.id.tgbFemale:
+                        gender = "F";
                         break;
                     case R.id.tgbMale:
+                        gender = "M";
                         break;
                 }
             }
@@ -171,6 +188,36 @@ public class RegistroActivity extends AppCompatActivity {
                     });
                     requestQueue.add(stringRequest);
                 }
+            }
+        });
+        // Finalización de Registro
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Validación de campos
+                // ...
+                // Obtención de datos ingresados
+                String dni = null;
+                String ce = null;
+                String firstLastName;
+                String secondLastName;
+                String names;
+                String birthdate;
+                boolean acepptedTerms;
+                if (spnDocumentType.getText().toString().equals(DNI))
+                    dni = edtDocumentNumber.getText().toString();
+                else
+                    ce = edtDocumentNumber.getText().toString();
+                firstLastName = edtFirstLastName.getText().toString();
+                secondLastName = edtSecondLastName.getText().toString();
+                names = edtNames.getText().toString();
+                birthdate = edtBitrhDate.getText().toString();
+                acepptedTerms = chbTerms.isChecked();
+                // Uso de clase
+                User user = new User(dni, ce, firstLastName, secondLastName, names, birthdate, gender);
+                // Inserción a la base de datos
+                if (acepptedTerms)
+                    databaseReference.push().setValue(user);
             }
         });
     }
