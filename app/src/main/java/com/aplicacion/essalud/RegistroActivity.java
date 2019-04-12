@@ -1,5 +1,6 @@
 package com.aplicacion.essalud;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Build;
@@ -60,11 +61,8 @@ public class RegistroActivity extends AppCompatActivity {
     private EditText edtFirstLastName;
     private EditText edtSecondLastName;
     private EditText edtNames;
-    private TextInputLayout tilBirthDate;
-    private MaterialButton btnBirthDate;
+    @SuppressLint("StaticFieldLeak")
     static EditText edtBitrhDate;
-    private ToggleGroup tggGender;
-    private MaterialButton btnNext;
     private CheckBox chbTerms;
     // Firebase
     FirebaseDatabase firebaseDatabase;
@@ -85,12 +83,12 @@ public class RegistroActivity extends AppCompatActivity {
         edtFirstLastName = (EditText) ((TextInputLayout) findViewById(R.id.tilUserFirstLastName)).getEditText();
         edtSecondLastName = (EditText) ((TextInputLayout) findViewById(R.id.tilUserSecondLastName)).getEditText();
         edtNames = (EditText) ((TextInputLayout) findViewById(R.id.tilNames)).getEditText();
-        tilBirthDate = (TextInputLayout) findViewById(R.id.tilBirthDate);
+        TextInputLayout tilBirthDate = (TextInputLayout) findViewById(R.id.tilBirthDate);
         edtBitrhDate = (EditText) tilBirthDate.getEditText();
-        btnBirthDate = (MaterialButton) findViewById(R.id.btnBirthDate);
-        tggGender = (ToggleGroup) findViewById(R.id.tggGender);
+        MaterialButton btnBirthDate = (MaterialButton) findViewById(R.id.btnBirthDate);
+        ToggleGroup tggGender = (ToggleGroup) findViewById(R.id.tggGender);
         chbTerms = (CheckBox) findViewById(R.id.chbTerms);
-        btnNext = (MaterialButton) findViewById(R.id.btnNext);
+        MaterialButton btnNext = (MaterialButton) findViewById(R.id.btnNext);
         // Creación de instancia Firebase Database
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("USERS");

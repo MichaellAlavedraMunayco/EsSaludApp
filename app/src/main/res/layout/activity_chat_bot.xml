@@ -4,59 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".ChatBotActivity">
 
     <include layout="@layout/app_bar_layout" />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <ListView
+        android:id="@+id/lvMessagesContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="15dp">
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:divider="@null"
+        android:paddingBottom="15dp"
+        tools:ignore="ObsoleteLayoutParam" />
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="80dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilChatBotMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="550dp"
-                    android:layout_gravity="fill"
-                    android:focusable="false"
-                    android:hint="Mensajes recibidos de ChatBot">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:focusable="false"
-                        android:gravity="start"
-                        android:inputType="textMultiLine" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-        </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilClientMessage"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginEnd="60dp"
-            android:layout_marginBottom="16dp"
-            android:hint="Escribe un mensaje">
+            android:layout_weight="2"
+            android:hint="@string/write_message">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtClientMessage"
                 style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textAutoComplete" />
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:inputType="textMultiLine|textAutoCorrect|textAutoComplete|textCapSentences" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -64,9 +48,9 @@
             style="@style/Widget.MaterialComponents.FloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
             app:srcCompat="@drawable/ic_mic_white_24dp" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+    </LinearLayout>
 </LinearLayout>

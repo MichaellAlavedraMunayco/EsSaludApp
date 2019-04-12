@@ -12,4 +12,6 @@
     <string name="male">MASCULINO</string>
     <string name="permission">He leído y acepto los términos y condiciones.</string>
     <string name="next">Siguiente</string>
+    <string name="write_message">Escribe un mensaje</string>
+    <string name="chatbot_name">ChatBot</string>
 </resources>
