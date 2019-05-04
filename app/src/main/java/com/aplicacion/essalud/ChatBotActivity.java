@@ -38,6 +38,7 @@ import ai.api.model.AIError;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
 import ai.api.model.Result;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -65,7 +66,7 @@ public class ChatBotActivity extends AppCompatActivity implements AIListener {
         // Declaración de controles
         mToolbar = (Toolbar) findViewById(R.id.myToolbar);
         tilClientMessage = (TextInputLayout) findViewById(R.id.tilClientMessage);
-        edtClientMessage = (TextInputEditText) findViewById(R.id.edtClientMessage);
+        edtClientMessage = (TextInputEditText) findViewById(R.id.tietClientMessage);
         btnAudioTextSend = (FloatingActionButton) findViewById(R.id.btnAudioTextSend);
         lvMessagesContainer = (ListView) findViewById(R.id.lvMessagesContainer);
         // Focalidad en ingreso de texto
@@ -313,11 +314,8 @@ public class ChatBotActivity extends AppCompatActivity implements AIListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.itmAudio:
-                showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Audio", Snackbar.LENGTH_LONG));
-                break;
-            case R.id.itmCalendar:
-                showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Calendario", Snackbar.LENGTH_LONG));
+            case R.id.itmDash:
+                startActivity(new Intent(this, MenuActivity.class));
                 break;
             case R.id.itmOther:
                 showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Otro", Snackbar.LENGTH_LONG));

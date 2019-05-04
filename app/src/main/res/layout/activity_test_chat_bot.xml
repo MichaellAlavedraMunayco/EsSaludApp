@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:chatview="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TestChatBotActivity">
+
+    <include
+        android:id="@+id/myToolbar"
+        layout="@layout/app_bar_layout"
+        chatview:layout_constraintBottom_toTopOf="@+id/chatView"
+        chatview:layout_constraintEnd_toEndOf="parent"
+        chatview:layout_constraintStart_toStartOf="parent"
+        chatview:layout_constraintTop_toTopOf="parent" />
+
+    <co.intentservice.chatui.ChatView
+        android:id="@+id/chatView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        chatview:backgroundColor="@color/icons"
+        chatview:bubbleBackgroundRcv="@color/primary"
+        chatview:bubbleBackgroundSend="@color/icons"
+        chatview:bubbleElevation="elevated"
+        chatview:inputHint="@string/write_message"
+        chatview:layout_constraintBottom_toBottomOf="parent"
+        chatview:layout_constraintEnd_toEndOf="parent"
+        chatview:layout_constraintStart_toStartOf="parent"
+        chatview:layout_constraintTop_toBottomOf="@+id/myToolbar"
+        chatview:sendBtnIcon="@drawable/ic_send_white_24dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

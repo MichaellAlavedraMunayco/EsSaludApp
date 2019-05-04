@@ -4,14 +4,24 @@
     <string name="document_type">Documento</string>
     <string name="document_type_0">Documento Nacional de Identidad</string>
     <string name="document_type_1">Carnet de Extranjería</string>
+    <string name="password">Contraseña</string>
     <string name="first_last_name">Apellido paterno</string>
     <string name="second_last_name">Apellido materno</string>
     <string name="names">Nombres</string>
     <string name="birth_date">Fecha de nacimiento</string>
     <string name="female">FEMENINO</string>
     <string name="male">MASCULINO</string>
-    <string name="permission">He leído y acepto los términos y condiciones.</string>
-    <string name="next">Siguiente</string>
+    <string name="terms">He leído y acepto los términos y condiciones.</string>
+    <string name="remember">Recordarme en este dispositivo</string>
+    <string name="login">Iniciar Sesión</string>
     <string name="write_message">Escribe un mensaje</string>
     <string name="chatbot_name">ChatBot</string>
+    <string name="citas">Citas</string>
+    <string name="citas_descripcion">Visualiza y reserva tus citas médicas</string>
+    <string name="actividades">Actividades</string>
+    <string name="actividades_descripcion">Gestiona tus actividades médicas diarias</string>
+    <string name="establecimientos">Establecimientos</string>
+    <string name="establecimientos_descripcion">Consulta la localización de nuestros hospitales más cercanos</string>
+    <string name="documentos">Documentos Clínicos</string>
+    <string name="documentos_descripcion">Registra tus documentos adquiridos en otros establecimientos médicos</string>
 </resources>

@@ -17,13 +17,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".TestChatBotActivity" />
+        <activity android:name=".MotivosActivity" />
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".HorariosActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SplashActivity" />
         <activity android:name=".AnimationMainActivity" />
         <activity android:name=".ChatBotActivity" />
         <activity android:name=".RegistroActivity" />
