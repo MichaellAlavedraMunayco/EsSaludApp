@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="32dp">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Servicio"
+        app:errorEnabled="true"
+        app:helperText="Ingresa el nombre del servicio"
+        app:helperTextEnabled="true"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true">
+
+        <AutoCompleteTextView
+            android:id="@+id/actvServicio"
+            style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="LabelFor" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Médico"
+        app:errorEnabled="true"
+        app:helperText="Ingresa el nombre del médico"
+        app:helperTextEnabled="true"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true">
+
+        <AutoCompleteTextView
+            android:id="@+id/actvMedico"
+            style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="LabelFor" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight=".7"
+            android:hint="Fecha"
+            app:helperText="Ingresa la fecha"
+            app:helperTextEnabled="true"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietFechaFiltro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFecha"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="124dp"
+            android:layout_height="68dp"
+            android:layout_weight=".7"
+            android:insetLeft="0dp"
+            android:insetTop="10dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:icon="@drawable/ic_date_range_white_24dp"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="30dp" />
+
+    </LinearLayout>
+</LinearLayout>

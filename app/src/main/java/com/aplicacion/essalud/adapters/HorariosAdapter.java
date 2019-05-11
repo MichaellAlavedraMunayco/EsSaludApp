@@ -33,15 +33,15 @@ public class HorariosAdapter extends BaseAdapter {
         this.context = context;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.listHorarios = new ArrayList<>();
-        this.listHorarios.add(new Horario(R.drawable.ic_expand_more_black_18dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "04 abril 2019", "10:05AM"));
-        this.listHorarios.add(new Horario(R.drawable.ic_expand_more_black_18dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "04 abril 2019", "10:05AM"));
-        this.listHorarios.add(new Horario(R.drawable.ic_expand_more_black_18dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "04 abril 2019", "10:05AM"));
-        this.listHorarios.add(new Horario(R.drawable.ic_expand_more_black_18dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "04 abril 2019", "10:05AM"));
-        this.listHorarios.add(new Horario(R.drawable.ic_expand_more_black_18dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "04 abril 2019", "10:05AM"));
-        this.listHorarios.add(new Horario(R.drawable.ic_expand_more_black_18dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "04 abril 2019", "10:05AM"));
-        this.listHorarios.add(new Horario(R.drawable.ic_expand_more_black_18dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "04 abril 2019", "10:05AM"));
-        this.listHorarios.add(new Horario(R.drawable.ic_expand_more_black_18dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "04 abril 2019", "10:05AM"));
-        this.listHorarios.add(new Horario(R.drawable.ic_expand_more_black_18dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "04 abril 2019", "10:05AM"));
+        this.listHorarios.add(new Horario(R.drawable.ic_date_range_white_24dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "04 abril 2019", "10:05AM"));
+        this.listHorarios.add(new Horario(R.drawable.ic_date_range_white_24dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "05 abril 2019", "10:05AM"));
+        this.listHorarios.add(new Horario(R.drawable.ic_date_range_white_24dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "06 abril 2019", "10:05AM"));
+        this.listHorarios.add(new Horario(R.drawable.ic_date_range_white_24dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "07 abril 2019", "10:05AM"));
+        this.listHorarios.add(new Horario(R.drawable.ic_date_range_white_24dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "08 abril 2019", "10:05AM"));
+        this.listHorarios.add(new Horario(R.drawable.ic_date_range_white_24dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "09 abril 2019", "10:05AM"));
+        this.listHorarios.add(new Horario(R.drawable.ic_date_range_white_24dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "10 abril 2019", "10:05AM"));
+        this.listHorarios.add(new Horario(R.drawable.ic_date_range_white_24dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "11 abril 2019", "10:05AM"));
+        this.listHorarios.add(new Horario(R.drawable.ic_date_range_white_24dp, new Medico("Nombre del medico"), new Servicio("Nombre del servicio"), "12 abril 2019", "10:05AM"));
     }
 
     @Override

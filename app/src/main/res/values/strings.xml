@@ -24,4 +24,7 @@
     <string name="establecimientos_descripcion">Consulta la localización de nuestros hospitales más cercanos</string>
     <string name="documentos">Documentos Clínicos</string>
     <string name="documentos_descripcion">Registra tus documentos adquiridos en otros establecimientos médicos</string>
+    <string name="buscar">Buscar</string>
+    <string name="busqueda">Búsqueda</string>
+    <string name="cancelar">Cancelar</string>
 </resources>
