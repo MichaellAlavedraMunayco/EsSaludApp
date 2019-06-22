@@ -33,6 +33,11 @@ import static com.aplicacion.essalud.methods.Methods.showSnackBar;
 
 public class TestChatBotActivity extends AppCompatActivity implements AIListener {
 
+    /*
+    * Si se deseara agregar respuestas del chatbot como images, cards, custom payload
+    * solo se debe usar la clase Inflater y modificar la librería andorid-chat-ui
+    * que actualmente se encuentra respondiendo unicamente mediante mensajes de texto
+    * */
 
     private AIService aiService;
     private AIDataService aiDataService;
@@ -107,7 +112,7 @@ public class TestChatBotActivity extends AppCompatActivity implements AIListener
         // Respuesta de DialogFlow
         String chatBotMessage = response.getResult().getFulfillment().getSpeech().toString();
         // Añadido a la interfaz
-        chatView.addMessage(new ChatMessage(chatBotMessage, System.currentTimeMillis(), ChatMessage.Type.RECEIVED));
+        chatView.addMessage(new ChatMessage(chatBotMessage, System.currentTimeMillis(), ChatMessage.Type.RECEIVED, "EsSaludBot"));
         // Lectura por altavoz
         textToSpeech.speak(chatBotMessage, TextToSpeech.QUEUE_FLUSH, null, null);
     }

@@ -1,10 +1,24 @@
 package com.aplicacion.essalud.models;
 
 public class Servicio {
-    String nombre;
 
-    public Servicio(String nombre) {
+    private int id;
+    private String nombre;
+
+    public Servicio() {
+    }
+
+    public Servicio(int id, String nombre) {
+        this.id = id;
         this.nombre = nombre;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -15,5 +29,11 @@ public class Servicio {
         this.nombre = nombre;
     }
 
-    ;
+    @Override
+    public String toString() {
+        return "Servicio{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                '}';
+    }
 }

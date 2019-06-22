@@ -80,7 +80,7 @@
             android:layout_height="68dp"
             android:layout_weight=".7"
             android:insetLeft="0dp"
-            android:insetTop="10dp"
+            android:insetTop="15dp"
             android:insetRight="0dp"
             android:insetBottom="0dp"
             app:icon="@drawable/ic_date_range_white_24dp"

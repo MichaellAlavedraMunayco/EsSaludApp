@@ -61,7 +61,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableRight="@drawable/ic_card_membership_black_24dp"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:text="12345678" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -79,7 +80,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableRight="@drawable/ic_https_black_24dp"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    tools:text="abc" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox

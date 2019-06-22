@@ -2,37 +2,19 @@ package com.aplicacion.essalud.models;
 
 public class Horario {
 
-    int srcIcon;
-    Medico medico;
-    Servicio servicio;
-    String fecha;
-    String hora;
+    private Servicio servicio;
+    private Medico medico;
+    private String fecha;
+    private String hora;
 
     public Horario() {
     }
 
-    public Horario(int srcIcon, Medico medico, Servicio servicio, String fecha, String hora) {
-        this.srcIcon = srcIcon;
-        this.medico = medico;
+    public Horario(Servicio servicio, Medico medico, String fecha, String hora) {
         this.servicio = servicio;
+        this.medico = medico;
         this.fecha = fecha;
         this.hora = hora;
-    }
-
-    public int getSrcIcon() {
-        return srcIcon;
-    }
-
-    public void setSrcIcon(int srcIcon) {
-        this.srcIcon = srcIcon;
-    }
-
-    public Medico getMedico() {
-        return medico;
-    }
-
-    public void setMedico(Medico medico) {
-        this.medico = medico;
     }
 
     public Servicio getServicio() {
@@ -41,6 +23,14 @@ public class Horario {
 
     public void setServicio(Servicio servicio) {
         this.servicio = servicio;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
     public String getFecha() {
@@ -57,5 +47,15 @@ public class Horario {
 
     public void setHora(String hora) {
         this.hora = hora;
+    }
+
+    @Override
+    public String toString() {
+        return "Horario{" +
+                "servicio=" + servicio +
+                ", medico=" + medico +
+                ", fecha='" + fecha + '\'' +
+                ", hora='" + hora + '\'' +
+                '}';
     }
 }
