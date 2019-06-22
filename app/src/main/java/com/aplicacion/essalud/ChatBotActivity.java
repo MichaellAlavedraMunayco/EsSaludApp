@@ -19,7 +19,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ListView;
 
 import com.aplicacion.essalud.models.Message;
-import com.aplicacion.essalud.utils.MessageAdapter;
+import com.aplicacion.essalud.adapters.MessageAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;

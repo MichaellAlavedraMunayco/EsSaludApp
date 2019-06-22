@@ -1,4 +1,4 @@
-package com.aplicacion.essalud.utils;
+package com.aplicacion.essalud.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

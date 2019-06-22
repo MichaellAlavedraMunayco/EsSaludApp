@@ -49,8 +49,8 @@ public class HorariosAdapter extends BaseAdapter {
         @SuppressLint("ViewHolder")
         View view = layoutInflater.inflate(R.layout.item_horario, null);
         MaterialCardView mcvHorario = (MaterialCardView) view.findViewById(R.id.mcvHorario);
-        ImageView imvHorarioIcon = (ImageView) view.findViewById(R.id.imvHorarioIcon);
-        TextView txvMedico = (TextView) view.findViewById(R.id.txvMedico);
+        ImageView imvHorarioIcon = (ImageView) view.findViewById(R.id.imvMotivoIcon);
+        TextView txvMedico = (TextView) view.findViewById(R.id.txvMotivo);
         TextView txvServicio = (TextView) view.findViewById(R.id.txvServicio);
         TextView txvFecha = (TextView) view.findViewById(R.id.txvFecha);
         TextView txvHora = (TextView) view.findViewById(R.id.txvHora);
