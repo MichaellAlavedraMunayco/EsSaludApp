@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.aplicacion.essalud.R;
@@ -50,12 +51,20 @@ public class MotivosAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         @SuppressLint("ViewHolder")
         View view = layoutInflater.inflate(R.layout.item_motivo, null);
         TextView txvMotivo = (TextView) view.findViewById(R.id.txvMotivo);
+        ImageButton btnRemoverMotivo = (ImageButton) view.findViewById(R.id.btnRemoverMotivo);
         Motivo motivo = listMotivos.get(position);
         txvMotivo.setText(motivo.getMotivo());
+        btnRemoverMotivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listMotivos.remove(position);
+                notifyDataSetChanged();
+            }
+        });
         return view;
     }
 }
