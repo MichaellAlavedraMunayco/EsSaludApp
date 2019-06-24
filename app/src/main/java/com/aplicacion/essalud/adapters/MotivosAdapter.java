@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.aplicacion.essalud.R;
-import com.aplicacion.essalud.models.Motivo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
 public class MotivosAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Motivo> listMotivos = new ArrayList<Motivo>();;
+    private List<String> listMotivos = new ArrayList<String>();;
     private final LayoutInflater layoutInflater;
 
     public MotivosAdapter(Context context) {
@@ -26,12 +25,12 @@ public class MotivosAdapter extends BaseAdapter {
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void add(Motivo motivo) {
+    public void add(String motivo) {
         this.listMotivos.add(motivo);
         notifyDataSetChanged();
     }
 
-    public List<Motivo> getList() {
+    public List<String> getList() {
         return this.listMotivos;
     }
 
@@ -56,8 +55,8 @@ public class MotivosAdapter extends BaseAdapter {
         View view = layoutInflater.inflate(R.layout.item_motivo, null);
         TextView txvMotivo = (TextView) view.findViewById(R.id.txvMotivo);
         ImageButton btnRemoverMotivo = (ImageButton) view.findViewById(R.id.btnRemoverMotivo);
-        Motivo motivo = listMotivos.get(position);
-        txvMotivo.setText(motivo.getMotivo());
+        String motivo = listMotivos.get(position);
+        txvMotivo.setText(motivo);
         btnRemoverMotivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

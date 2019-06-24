@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".DetalleCitaActivity"></activity>
         <activity android:name=".TestChatBotActivity" />
         <activity android:name=".MotivosActivity" />
         <activity android:name=".MenuActivity" />

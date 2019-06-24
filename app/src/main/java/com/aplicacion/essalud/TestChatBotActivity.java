@@ -53,7 +53,7 @@ public class TestChatBotActivity extends AppCompatActivity implements AIListener
         Toolbar myToolbar = (Toolbar) findViewById(R.id.myToolbar);
         setSupportActionBar(myToolbar);
         ActionBar actionBar = getSupportActionBar();
-        Objects.requireNonNull(actionBar).setTitle("Asistente ChatBot");
+        Objects.requireNonNull(actionBar).setTitle("Asistente EsSaludBOT");
         // Parametros de DialogFlow
         final AIConfiguration config =
                 new AIConfiguration("1b2544d053b847e2adac824b37a67de5",
@@ -112,7 +112,7 @@ public class TestChatBotActivity extends AppCompatActivity implements AIListener
         // Respuesta de DialogFlow
         String chatBotMessage = response.getResult().getFulfillment().getSpeech().toString();
         // Añadido a la interfaz
-        chatView.addMessage(new ChatMessage(chatBotMessage, System.currentTimeMillis(), ChatMessage.Type.RECEIVED, "EsSaludBot"));
+        chatView.addMessage(new ChatMessage(chatBotMessage, System.currentTimeMillis(), ChatMessage.Type.RECEIVED, "EsSaludBOT"));
         // Lectura por altavoz
         textToSpeech.speak(chatBotMessage, TextToSpeech.QUEUE_FLUSH, null, null);
     }

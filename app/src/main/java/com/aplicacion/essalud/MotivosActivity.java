@@ -3,6 +3,7 @@ package com.aplicacion.essalud;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,17 +11,12 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.aplicacion.essalud.adapters.MotivosAdapter;
-import com.aplicacion.essalud.models.Motivo;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
-
-import static com.aplicacion.essalud.methods.Methods.showSnackBar;
 
 public class MotivosActivity extends AppCompatActivity {
 
@@ -52,23 +48,28 @@ public class MotivosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String motivo = Objects.requireNonNull(tietMotivo.getText()).toString();
-                if(TextUtils.isEmpty(motivo)){
+                if (TextUtils.isEmpty(motivo)) {
                     tilMotivo.setError("Ingresa un motivo");
                 } else {
-                    motivosAdapter.add(new Motivo(motivo));
+                    motivosAdapter.add(motivo);
+                    tietMotivo.getText().clear();
                 }
             }
         });
         btnRegistrarMotivos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Motivo> listMotivos = motivosAdapter.getList();
-                if(listMotivos.size() > 0){
-                    DatabaseReference dbr = firebaseDatabase.getReference("motivos");
-                    for (Motivo motivo: listMotivos) {
-                        // Añadir motivo a firebase database
-                    }
-                }
+                Intent i = new Intent(MotivosActivity.this, DetalleCitaActivity.class);
+                i.putStringArrayListExtra("motivos", (ArrayList<String>) motivosAdapter.getList());
+                i.putExtras(Objects.requireNonNull(getIntent().getExtras()));
+//                i.putExtra("fecha", getIntent().getStringExtra("fecha"));
+//                i.putExtra("hora", getIntent().getStringExtra("hora"));
+//                i.putExtra("consultorio", getIntent().getStringExtra("consultorio"));
+//                i.putExtra("medico_id", getIntent().getStringExtra("medico_id"));
+//                i.putExtra("medico_name", horario.getMedico().getNombre());
+//                i.putExtra("servicio_id", horario.getServicio().getId());
+//                i.putExtra("servicio_name", horario.getServicio().getNombre());
+                startActivity(i);
             }
         });
     }

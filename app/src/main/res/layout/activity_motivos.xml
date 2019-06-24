@@ -7,7 +7,7 @@
     tools:context=".MotivosActivity">
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/myToolbar"
         layout="@layout/app_bar_layout" />
 
     <TextView
@@ -23,7 +23,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tilMotivo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+        app:layout_constraintTop_toBottomOf="@+id/myToolbar" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilMotivo"
