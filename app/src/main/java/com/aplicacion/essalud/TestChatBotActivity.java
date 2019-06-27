@@ -1,9 +1,5 @@
 package com.aplicacion.essalud;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,7 +8,9 @@ import android.speech.tts.TextToSpeech;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -25,14 +23,16 @@ import ai.api.android.AIService;
 import ai.api.model.AIError;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
-import ai.api.model.Result;
 import co.intentservice.chatui.ChatView;
 import co.intentservice.chatui.models.ChatMessage;
 
-import static com.aplicacion.essalud.methods.Methods.showSnackBar;
-
 public class TestChatBotActivity extends AppCompatActivity implements AIListener {
 
+    /*
+    * Si se deseara agregar respuestas del chatbot como images, cards, custom payload
+    * solo se debe usar la clase Inflater y modificar la librería andorid-chat-ui
+    * que actualmente se encuentra respondiendo unicamente mediante mensajes de texto
+    * */
 
     private AIService aiService;
     private AIDataService aiDataService;
@@ -48,7 +48,7 @@ public class TestChatBotActivity extends AppCompatActivity implements AIListener
         Toolbar myToolbar = (Toolbar) findViewById(R.id.myToolbar);
         setSupportActionBar(myToolbar);
         ActionBar actionBar = getSupportActionBar();
-        Objects.requireNonNull(actionBar).setTitle("Asistente ChatBot");
+        Objects.requireNonNull(actionBar).setTitle("Asistente EsSalud");
         // Parametros de DialogFlow
         final AIConfiguration config =
                 new AIConfiguration("1b2544d053b847e2adac824b37a67de5",
@@ -107,7 +107,7 @@ public class TestChatBotActivity extends AppCompatActivity implements AIListener
         // Respuesta de DialogFlow
         String chatBotMessage = response.getResult().getFulfillment().getSpeech().toString();
         // Añadido a la interfaz
-        chatView.addMessage(new ChatMessage(chatBotMessage, System.currentTimeMillis(), ChatMessage.Type.RECEIVED));
+        chatView.addMessage(new ChatMessage(chatBotMessage, System.currentTimeMillis(), ChatMessage.Type.RECEIVED, "EsSaludBOT"));
         // Lectura por altavoz
         textToSpeech.speak(chatBotMessage, TextToSpeech.QUEUE_FLUSH, null, null);
     }
@@ -145,16 +145,10 @@ public class TestChatBotActivity extends AppCompatActivity implements AIListener
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.itmDash:
-                startActivity(new Intent(this, MenuActivity.class));
-                break;
-            case R.id.itmOther:
-                showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Otro", Snackbar.LENGTH_LONG));
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.itmDash) {
+            startActivity(new Intent(this, MenuActivity.class));
+        } else {
+            return super.onOptionsItemSelected(item);
         }
         return false;
     }

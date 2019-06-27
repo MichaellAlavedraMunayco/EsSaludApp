@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/itmDash"
-        android:icon="@drawable/ic_dashboard_white_24dp"
+        android:id="@+id/itmSearch"
+        android:icon="@drawable/ic_search_white_24dp"
         android:orderInCategory="1"
-        android:title="Menu Principal"
+        android:title="Buscar Horario"
         app:showAsAction="always" />
 </menu>

@@ -28,68 +28,18 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txvHora"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="10:05 PM"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/primary_dark"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txvServicio"
-                app:layout_constraintTop_toBottomOf="@+id/txvFecha"
-                tools:ignore="RtlSymmetry" />
-
-            <TextView
                 android:id="@+id/txvMotivo"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Nombre del medico"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:text="Motivo detallado de la consulta"
                 android:textColor="#000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/txvServicio"
-                app:layout_constraintEnd_toStartOf="@+id/txvFecha"
-                app:layout_constraintStart_toEndOf="@+id/materialCardView2"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="RtlSymmetry" />
-
-            <TextView
-                android:id="@+id/txvServicio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="Nombre del servicio"
-                android:textColor="#555"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/txvHora"
+                app:layout_constraintEnd_toStartOf="@+id/btnRemoverMotivo"
                 app:layout_constraintStart_toEndOf="@+id/materialCardView2"
-                app:layout_constraintTop_toBottomOf="@+id/txvMotivo"
-                tools:ignore="RtlSymmetry" />
-
-            <TextView
-                android:id="@+id/txvFecha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="10 abril 2019"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/primary"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/txvHora"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txvMotivo"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="RtlSymmetry" />
 
@@ -117,9 +67,25 @@
                     android:layout_height="match_parent"
                     android:padding="10dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_person_white_24dp"
+                    android:src="@drawable/ic_local_hospital_white_24dp"
                     tools:ignore="ContentDescription" />
             </com.google.android.material.card.MaterialCardView>
+
+            <ImageButton
+                android:id="@+id/btnRemoverMotivo"
+                android:layout_width="40dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txvMotivo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_delete_red_a400_24dp"
+                tools:ignore="ContentDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

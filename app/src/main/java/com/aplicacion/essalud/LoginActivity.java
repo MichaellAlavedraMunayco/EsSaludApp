@@ -1,14 +1,10 @@
 package com.aplicacion.essalud;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 
@@ -16,13 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.aplicacion.essalud.models.database.LocalDB;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -48,10 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     // Preferencias
     private SharedPreferences PREFERENCES;
     private SharedPreferences.Editor EDITOR;
-    public static final String PREFS_NAME = "USERDATA";
-    private static final String PREF_DOCUMENT_NUMBER_DNI = "document_number_ce";
-    private static final String PREF_DOCUMENT_NUMBER_CE = "document_number_dni";
-    private static final String PREF_PASSWORD = "password";
+
     // Firebase
     FirebaseDatabase fdEsSaludBD;
 
@@ -60,10 +53,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Validar si existe autenticación
-        PREFERENCES = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        String document_number_ce = PREFERENCES.getString(encrypt(PREF_DOCUMENT_NUMBER_CE), null);
-        String document_number_dni = PREFERENCES.getString(encrypt(PREF_DOCUMENT_NUMBER_DNI), null);
-        String password = PREFERENCES.getString(encrypt(PREF_PASSWORD), null);
+        PREFERENCES = getSharedPreferences(LocalDB.PREFS_NAME, MODE_PRIVATE);
+        String document_number_ce = PREFERENCES.getString(encrypt(LocalDB.PREF_DOCUMENT_NUMBER_CE), null);
+        String document_number_dni = PREFERENCES.getString(encrypt(LocalDB.PREF_DOCUMENT_NUMBER_DNI), null);
+        String password = PREFERENCES.getString(encrypt(LocalDB.PREF_PASSWORD), null);
         if (document_number_ce != null && document_number_dni != null && password != null)
             InitChatBotActivity();
         // Declaración de controles
@@ -122,32 +115,62 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 // Filtrar en la BD
-                DatabaseReference refUsuarios = fdEsSaludBD.getReference("usuarios");
-                refUsuarios.addListenerForSingleValueEvent(new ValueEventListener() {
+                fdEsSaludBD.getReference("pacientes").addListenerForSingleValueEvent(new ValueEventListener() {
                     @SuppressLint({"CommitPrefEdits", "ApplySharedPref"})
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dsUsuarios) {
-                        for (DataSnapshot sUsuario : dsUsuarios.getChildren()) {
-                            String bdDocumentNumberDNI = Objects.requireNonNull(sUsuario.child("dni").getValue()).toString();
-                            String bdDocumentNumberCE = Objects.requireNonNull(sUsuario.child("ce").getValue()).toString();
-                            String bdPassword = Objects.requireNonNull(sUsuario.child("password").getValue()).toString();
+                    public void onDataChange(@NonNull DataSnapshot dsPacientes) {
+                        for (DataSnapshot sPaciente : dsPacientes.getChildren()) {
+                            final String bdPacienteId = Objects.requireNonNull(sPaciente.getKey()).toString();
+                            final int bdPersonaId = Integer.parseInt(Objects.requireNonNull(sPaciente.child("PERSONA_ID").getValue()).toString());
+                            final String bdDocumentNumberDNI = Objects.requireNonNull(sPaciente.child("dni").getValue()).toString();
+                            final String bdDocumentNumberCE = Objects.requireNonNull(sPaciente.child("ce").getValue()).toString();
+                            final String bdPassword = Objects.requireNonNull(sPaciente.child("password").getValue()).toString();
+                            final String bdAccountState = Objects.requireNonNull(sPaciente.child("ESTADO").getValue()).toString();
+                            final String bdHospitalId = Objects.requireNonNull(sPaciente.child("HOSPITAL_ID").getValue()).toString();
                             if ((bdDocumentNumberCE.equals(documentNumber)
                                     || bdDocumentNumberDNI.equals(documentNumber))
-                                    && bdPassword.equals(password)) {
-                                if (remember) {
-                                    EDITOR = PREFERENCES.edit();
-                                    EDITOR.putString(encrypt(PREF_DOCUMENT_NUMBER_DNI), encrypt(bdDocumentNumberDNI))
-                                            .putString(encrypt(PREF_DOCUMENT_NUMBER_CE), encrypt(bdDocumentNumberCE))
-                                            .putString(encrypt(PREF_PASSWORD), encrypt(bdPassword))
-                                            .commit();
-                                }
-                                InitChatBotActivity();
-                                return;
+                                    && bdPassword.equals(password) && bdAccountState.equals("activo")) {
+                                fdEsSaludBD.getReference("personas").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dsPersonas) {
+                                        String bdFirstName = "";
+                                        String bdLastName = "";
+                                        String bdEmail = "";
+                                        String bdAddress = "";
+                                        for (DataSnapshot dsPersona : dsPersonas.getChildren()) {
+                                            int dsPersonaId = Integer.parseInt(Objects.requireNonNull(dsPersona.getKey()));
+                                            if (dsPersonaId == bdPersonaId) {
+                                                bdFirstName = Objects.requireNonNull(dsPersona.child("NOMBRE").getValue()).toString();
+                                                bdLastName = Objects.requireNonNull(dsPersona.child("APELLIDO").getValue()).toString();
+                                                bdEmail = Objects.requireNonNull(dsPersona.child("CORREO_GOOGLE").getValue()).toString();
+                                                bdAddress = Objects.requireNonNull(dsPersona.child("DIRECCION").getValue()).toString();
+                                                EDITOR = PREFERENCES.edit();
+                                                EDITOR.putString(encrypt(LocalDB.PREF_PACIENTE_ID), encrypt(Integer.toString(dsPersonaId)))
+                                                        .putString(encrypt(LocalDB.PREF_PACIENTE_NAME), encrypt(bdFirstName))
+                                                        .putString(encrypt(LocalDB.PREF_PACIENTE_LASTNAME), encrypt(bdLastName))
+                                                        .putString(encrypt(LocalDB.PREF_PACIENTE_EMAIL), encrypt(bdEmail))
+                                                        .putString(encrypt(LocalDB.PREF_PACIENTE_ADDRESS), encrypt(bdAddress))
+                                                        .putString(encrypt(LocalDB.PREF_HOSPITAL_ID), encrypt(bdHospitalId));
+                                                if (remember) {
+                                                    EDITOR.putString(encrypt(LocalDB.PREF_DOCUMENT_NUMBER_DNI), encrypt(bdDocumentNumberDNI))
+                                                            .putString(encrypt(LocalDB.PREF_DOCUMENT_NUMBER_CE), encrypt(bdDocumentNumberCE))
+                                                            .putString(encrypt(LocalDB.PREF_PASSWORD), encrypt(bdPassword));
+                                                }
+                                                EDITOR.commit();
+                                                InitChatBotActivity();
+                                                return;
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
                             }
+                            showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Credenciales incorrectas", Snackbar.LENGTH_LONG));
                         }
-                        showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Credenciales incorrectas", Snackbar.LENGTH_LONG));
-                        tietDocumentNumber.getText().clear();
-                        tietPassword.getText().clear();
                     }
 
                     @Override

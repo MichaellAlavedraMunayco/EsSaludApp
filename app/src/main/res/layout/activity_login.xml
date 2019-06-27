@@ -37,56 +37,64 @@
                 android:id="@+id/msDocumentType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:elevation="2dp"
+                android:text="@string/document_type"
                 android:textAlignment="center"
-                app:ms_background_color="@color/accent"
-                app:ms_hint="@string/document_type"
-                app:ms_hint_color="@color/icons"
-                app:ms_text_color="@color/icons" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:ms_arrow_tint="@color/primary"
+                app:ms_hint_color="@color/primary"
+                app:ms_text_color="@color/primary" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilDocumentNumber"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
                 android:hint="@string/document_number"
+                app:boxBackgroundColor="@color/white"
                 app:counterEnabled="true"
                 app:errorEnabled="true"
                 app:helperTextEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tietDocumentNumber"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableRight="@drawable/ic_card_membership_black_24dp"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:text="12345678" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilPassword"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:hint="@string/password"
+                app:boxBackgroundColor="@color/white"
                 app:errorEnabled="true"
                 app:helperTextEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tietPassword"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableRight="@drawable/ic_https_black_24dp"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    tools:text="abc" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox
                 android:id="@+id/chbRemember"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/remember" />
 
             <com.google.android.material.button.MaterialButton
