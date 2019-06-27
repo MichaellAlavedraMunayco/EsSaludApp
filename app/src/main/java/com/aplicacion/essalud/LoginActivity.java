@@ -125,9 +125,11 @@ public class LoginActivity extends AppCompatActivity {
                             final String bdDocumentNumberDNI = Objects.requireNonNull(sPaciente.child("dni").getValue()).toString();
                             final String bdDocumentNumberCE = Objects.requireNonNull(sPaciente.child("ce").getValue()).toString();
                             final String bdPassword = Objects.requireNonNull(sPaciente.child("password").getValue()).toString();
+                            final String bdAccountState = Objects.requireNonNull(sPaciente.child("ESTADO").getValue()).toString();
+                            final String bdHospitalId = Objects.requireNonNull(sPaciente.child("HOSPITAL_ID").getValue()).toString();
                             if ((bdDocumentNumberCE.equals(documentNumber)
                                     || bdDocumentNumberDNI.equals(documentNumber))
-                                    && bdPassword.equals(password)) {
+                                    && bdPassword.equals(password) && bdAccountState.equals("activo")) {
                                 fdEsSaludBD.getReference("personas").addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dsPersonas) {
@@ -143,10 +145,12 @@ public class LoginActivity extends AppCompatActivity {
                                                 bdEmail = Objects.requireNonNull(dsPersona.child("CORREO_GOOGLE").getValue()).toString();
                                                 bdAddress = Objects.requireNonNull(dsPersona.child("DIRECCION").getValue()).toString();
                                                 EDITOR = PREFERENCES.edit();
-                                                EDITOR.putString(encrypt(LocalDB.PREF_PACIENTE_NAME), encrypt(bdFirstName))
+                                                EDITOR.putString(encrypt(LocalDB.PREF_PACIENTE_ID), encrypt(Integer.toString(dsPersonaId)))
+                                                        .putString(encrypt(LocalDB.PREF_PACIENTE_NAME), encrypt(bdFirstName))
                                                         .putString(encrypt(LocalDB.PREF_PACIENTE_LASTNAME), encrypt(bdLastName))
                                                         .putString(encrypt(LocalDB.PREF_PACIENTE_EMAIL), encrypt(bdEmail))
-                                                        .putString(encrypt(LocalDB.PREF_PACIENTE_ADDRESS), encrypt(bdAddress));
+                                                        .putString(encrypt(LocalDB.PREF_PACIENTE_ADDRESS), encrypt(bdAddress))
+                                                        .putString(encrypt(LocalDB.PREF_HOSPITAL_ID), encrypt(bdHospitalId));
                                                 if (remember) {
                                                     EDITOR.putString(encrypt(LocalDB.PREF_DOCUMENT_NUMBER_DNI), encrypt(bdDocumentNumberDNI))
                                                             .putString(encrypt(LocalDB.PREF_DOCUMENT_NUMBER_CE), encrypt(bdDocumentNumberCE))
@@ -157,9 +161,6 @@ public class LoginActivity extends AppCompatActivity {
                                                 return;
                                             }
                                         }
-                                        showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Credenciales incorrectas", Snackbar.LENGTH_LONG));
-                                        tietDocumentNumber.getText().clear();
-                                        tietPassword.getText().clear();
                                     }
 
                                     @Override
@@ -168,8 +169,8 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
                             }
+                            showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Credenciales incorrectas", Snackbar.LENGTH_LONG));
                         }
-
                     }
 
                     @Override

@@ -2,6 +2,7 @@ package com.aplicacion.essalud.models;
 
 public class Horario {
 
+    private Hospital hospital;
     private Servicio servicio;
     private Medico medico;
     private String fecha;
@@ -10,11 +11,20 @@ public class Horario {
     public Horario() {
     }
 
-    public Horario(Servicio servicio, Medico medico, String fecha, String hora) {
+    public Horario(Hospital hospital, Servicio servicio, Medico medico, String fecha, String hora) {
+        this.hospital = hospital;
         this.servicio = servicio;
         this.medico = medico;
         this.fecha = fecha;
         this.hora = hora;
+    }
+
+    public Hospital getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
     }
 
     public Servicio getServicio() {

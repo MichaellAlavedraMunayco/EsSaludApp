@@ -313,15 +313,10 @@ public class ChatBotActivity extends AppCompatActivity implements AIListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.itmDash:
-                startActivity(new Intent(this, MenuActivity.class));
-                break;
-            case R.id.itmOther:
-                showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Otro", Snackbar.LENGTH_LONG));
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (id == R.id.itmDash) {
+            startActivity(new Intent(this, MenuActivity.class));
+        } else {
+            return super.onOptionsItemSelected(item);
         }
         return false;
     }

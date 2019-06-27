@@ -1,17 +1,13 @@
 package com.aplicacion.essalud;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -20,11 +16,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.aplicacion.essalud.adapters.HorariosAdapter;
 import com.aplicacion.essalud.models.Horario;
 import com.aplicacion.essalud.models.Hospital;
 import com.aplicacion.essalud.models.Medico;
 import com.aplicacion.essalud.models.Servicio;
+import com.aplicacion.essalud.models.database.LocalDB;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
@@ -39,16 +42,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import static com.aplicacion.essalud.methods.Methods.decrypt;
+import static com.aplicacion.essalud.methods.Methods.encrypt;
+
 public class HorariosActivity extends AppCompatActivity {
 
     TextView txvHospitalNombre;
     ListView lvHorarios;
-    MaterialButton mbFiltrarHorario;
-    AutoCompleteTextView actvMedico;
-    AutoCompleteTextView actvServicio;
+    TextInputEditText actvMedico;
+    TextInputEditText actvServicio;
     TextInputEditText tietFecha;
     MaterialButton btnFecha;
-
     FirebaseDatabase firebaseDatabase;
 
     @Override
@@ -57,17 +61,14 @@ public class HorariosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_horarios);
         txvHospitalNombre = (TextView) findViewById(R.id.txvHospital);
         lvHorarios = (ListView) findViewById(R.id.lvHorarios);
-        mbFiltrarHorario = (MaterialButton) findViewById(R.id.mbFiltrarHorario);
-        // Modificación de ToolBar
-        ((Toolbar) findViewById(R.id.myToolbar)).setTitle("Horarios");
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.myToolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        Objects.requireNonNull(actionBar).setTitle("Horarios Disponibles");
         firebaseDatabase = FirebaseDatabase.getInstance();
-        mbFiltrarHorario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createDialog().show();
-            }
-        });
-        ShowHorarios(1, null);
+        SharedPreferences PREFERENCES = getSharedPreferences(LocalDB.PREFS_NAME, MODE_PRIVATE);
+        final String HospitalId = decrypt(PREFERENCES.getString(encrypt(LocalDB.PREF_HOSPITAL_ID), null));
+        ShowHorarios(Integer.parseInt(HospitalId), null);
     }
 
     public AlertDialog createDialog() {
@@ -76,14 +77,8 @@ public class HorariosActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         @SuppressLint("InflateParams")
         View view = inflater.inflate(R.layout.filtro_horario, null);
-        actvServicio = (AutoCompleteTextView) view.findViewById(R.id.actvServicio);
-        actvServicio.setThreshold(3);
-        actvServicio.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.select_dialog_item,
-                new String[]{"Servicio 1", "Servicio 2", "Servicio 3", "Servicio 4"}));
-        actvMedico = (AutoCompleteTextView) view.findViewById(R.id.actvMedico);
-        actvMedico.setThreshold(3);
-        actvMedico.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.select_dialog_item,
-                new String[]{"Médico 1", "Médico 2", "Médico 3", "Médico 4"}));
+        actvServicio = (TextInputEditText) view.findViewById(R.id.actvServicio);
+        actvMedico = (TextInputEditText) view.findViewById(R.id.actvMedico);
         tietFecha = (TextInputEditText) view.findViewById(R.id.tietFechaFiltro);
         btnFecha = (MaterialButton) view.findViewById(R.id.btnFecha);
         btnFecha.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +131,7 @@ public class HorariosActivity extends AppCompatActivity {
                     if (Integer.parseInt(Objects.requireNonNull(dsHospital.getKey())) == idHospital) {
                         hospital.setId(Integer.parseInt(Objects.requireNonNull(dsHospital.getKey())));
                         hospital.setDireccion(Objects.requireNonNull(dsHospital.child("DIRECCION").getValue()).toString());
+                        txvHospitalNombre.setText(hospital.getDireccion());
                         firebaseDatabase.getReference("unidades_medicas").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull final DataSnapshot dsUnidadesMedicas) {
@@ -145,7 +141,7 @@ public class HorariosActivity extends AppCompatActivity {
                                         servicio.setId(Integer.parseInt(Objects.requireNonNull(dsUnidadMedica.getKey())));
                                         servicio.setNombre(Objects.requireNonNull(dsUnidadMedica.child("NOMBRE_UNIDAD").getValue()).toString());
                                         final Calendar c = Calendar.getInstance();
-                                        @SuppressLint("SimpleDateFormat") final SimpleDateFormat dateformat = new SimpleDateFormat("MMM dd yyyy");
+                                        @SuppressLint("SimpleDateFormat") final SimpleDateFormat dateformat = new SimpleDateFormat("MMMM dd yyyy");
                                         @SuppressLint("SimpleDateFormat") final SimpleDateFormat timeformat = new SimpleDateFormat("hh:mm:ss aa");
                                         final Date[] fecha = {(fechafiltro == null) ? c.getTime() : fechafiltro};
                                         final Date[] hora = {(fechafiltro == null) ? c.getTime() : fechafiltro};
@@ -175,18 +171,20 @@ public class HorariosActivity extends AppCompatActivity {
                                                                             }
                                                                             medico.setNombre(nombreMedico);
                                                                             for (int i = 0; i < 10; i++) {
-                                                                                Horario horario = new Horario();
-                                                                                horario.setServicio(servicio);
-                                                                                horario.setMedico(medico);
-                                                                                horario.setFecha(dateformat.format(fecha[0]));
-                                                                                horario.setHora(timeformat.format(hora[0]));
-                                                                                listHorarios.add(horario);
-                                                                                c.add(Calendar.HOUR, 2);
-                                                                                fecha[0] = c.getTime();
-                                                                                hora[0] = c.getTime();
+                                                                                if (!isTomorrow(c.getTimeInMillis())) {
+                                                                                    Horario horario = new Horario();
+                                                                                    horario.setHospital(hospital);
+                                                                                    horario.setServicio(servicio);
+                                                                                    horario.setMedico(medico);
+                                                                                    horario.setFecha(dateformat.format(fecha[0]));
+                                                                                    horario.setHora(timeformat.format(hora[0]));
+                                                                                    listHorarios.add(horario);
+                                                                                    c.add(Calendar.HOUR, 2);
+                                                                                    fecha[0] = c.getTime();
+                                                                                    hora[0] = c.getTime();
+                                                                                } else break;
                                                                             }
                                                                             lvHorarios.setAdapter(new HorariosAdapter(HorariosActivity.this, listHorarios));
-
                                                                         }
 
                                                                         @Override
@@ -230,5 +228,33 @@ public class HorariosActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public boolean isTomorrow(long date) {
+        Calendar now = Calendar.getInstance();
+        Calendar cdate = Calendar.getInstance();
+        cdate.setTimeInMillis(date);
+
+        now.add(Calendar.DATE, +1);
+
+        return now.get(Calendar.YEAR) == cdate.get(Calendar.YEAR)
+                && now.get(Calendar.MONTH) == cdate.get(Calendar.MONTH)
+                && now.get(Calendar.DATE) == cdate.get(Calendar.DATE);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.app_bar_menu_search, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.itmSearch) {
+            createDialog().show();
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+        return false;
     }
 }

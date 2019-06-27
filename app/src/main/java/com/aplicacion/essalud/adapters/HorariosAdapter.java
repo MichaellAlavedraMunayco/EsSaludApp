@@ -75,10 +75,12 @@ public class HorariosAdapter extends BaseAdapter {
                 String SalonLetter = ((new Random().nextInt((2 - 1) + 1) + 1) == 1)? "A" : "B";
                 int SalonNumber = new Random().nextInt((12 - 1) + 1) + 1;
                 i.putExtra("consultorio", SalonLetter + "-" + SalonNumber);
-                i.putExtra("medico_id", horario.getMedico().getId());// es null
+                i.putExtra("medico_id", horario.getMedico().getId());
                 i.putExtra("medico_name", horario.getMedico().getNombre());
-                i.putExtra("servicio_id", horario.getServicio().getId()); // es null
+                i.putExtra("servicio_id", horario.getServicio().getId());
                 i.putExtra("servicio_name", horario.getServicio().getNombre());
+                i.putExtra("hospital_address", horario.getHospital().getDireccion());
+                i.putExtra("hospital_id", horario.getHospital().getId());
                 context.startActivity(i);
             }
         });
