@@ -61,9 +61,9 @@ public class LoginActivity extends AppCompatActivity {
         String document_number_ce = PREFERENCES.getString(encrypt(LocalDB.PREF_DOCUMENT_NUMBER_CE), null);
         String document_number_dni = PREFERENCES.getString(encrypt(LocalDB.PREF_DOCUMENT_NUMBER_DNI), null);
         String password = PREFERENCES.getString(encrypt(LocalDB.PREF_PASSWORD), null);
-        String username = decrypt(PREFERENCES.getString(encrypt(LocalDB.PREF_PACIENTE_NAME), null));
-        if (document_number_ce != null && document_number_dni != null && password != null)
-            InitChatBotActivity(username);
+        String username = PREFERENCES.getString(encrypt(LocalDB.PREF_PACIENTE_NAME), null);
+        if (document_number_ce != null && document_number_dni != null && password != null && username != null)
+            InitChatBotActivity(decrypt(username));
         // Declaración de controles
         msDocumentType = (MaterialSpinner) findViewById(R.id.msDocumentType);
         tilDocumentNumber = (TextInputLayout) findViewById(R.id.tilDocumentNumber);
