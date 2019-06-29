@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.Objects;
 
+import static com.aplicacion.essalud.methods.Methods.decrypt;
 import static com.aplicacion.essalud.methods.Methods.encrypt;
 import static com.aplicacion.essalud.methods.Methods.showSnackBar;
 
@@ -45,9 +47,11 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences PREFERENCES;
     private SharedPreferences.Editor EDITOR;
 
+    TextView txvHelp;
     // Firebase
     FirebaseDatabase fdEsSaludBD;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +61,9 @@ public class LoginActivity extends AppCompatActivity {
         String document_number_ce = PREFERENCES.getString(encrypt(LocalDB.PREF_DOCUMENT_NUMBER_CE), null);
         String document_number_dni = PREFERENCES.getString(encrypt(LocalDB.PREF_DOCUMENT_NUMBER_DNI), null);
         String password = PREFERENCES.getString(encrypt(LocalDB.PREF_PASSWORD), null);
+        String username = decrypt(PREFERENCES.getString(encrypt(LocalDB.PREF_PACIENTE_NAME), null));
         if (document_number_ce != null && document_number_dni != null && password != null)
-            InitChatBotActivity();
+            InitChatBotActivity(username);
         // Declaración de controles
         msDocumentType = (MaterialSpinner) findViewById(R.id.msDocumentType);
         tilDocumentNumber = (TextInputLayout) findViewById(R.id.tilDocumentNumber);
@@ -67,6 +72,8 @@ public class LoginActivity extends AppCompatActivity {
         tietPassword = (TextInputEditText) findViewById(R.id.tietPassword);
         chbRemember = (CheckBox) findViewById(R.id.chbRemember);
         mbtnLogin = (MaterialButton) findViewById(R.id.mbtnLogin);
+        txvHelp = (TextView) findViewById(R.id.txvHelp);
+        txvHelp.setText("(DNI:12345678|CE: 123456789)/PASSWORD: abc");
         // Modificación de ToolBar
         ((Toolbar) findViewById(R.id.myToolbar)).setTitle("Autenticación EsSalud");
         // Llenado de variables de selección a msDocumentType
@@ -157,10 +164,11 @@ public class LoginActivity extends AppCompatActivity {
                                                             .putString(encrypt(LocalDB.PREF_PASSWORD), encrypt(bdPassword));
                                                 }
                                                 EDITOR.commit();
-                                                InitChatBotActivity();
+                                                InitChatBotActivity(bdFirstName);
                                                 return;
                                             }
                                         }
+                                        showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Credenciales incorrectas", Snackbar.LENGTH_LONG));
                                     }
 
                                     @Override
@@ -169,7 +177,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
                             }
-                            showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Credenciales incorrectas", Snackbar.LENGTH_LONG));
+
                         }
                     }
 
@@ -182,8 +190,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void InitChatBotActivity() {
-        startActivity(new Intent(this, TestChatBotActivity.class));
+    private void InitChatBotActivity(String username) {
+        Intent i = new Intent(this, TestChatBotActivity.class);
+        i.putExtra("USERNAME", username);
+        startActivity(i);
     }
 
     // Limpiar errores de controles
