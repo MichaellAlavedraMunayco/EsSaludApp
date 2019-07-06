@@ -171,7 +171,10 @@ public class HorariosActivity extends AppCompatActivity {
                                                                             }
                                                                             medico.setNombre(nombreMedico);
                                                                             for (int i = 0; i < 10; i++) {
+                                                                                c.add(Calendar.HOUR, 2);
                                                                                 if (!isTomorrow(c.getTimeInMillis())) {
+                                                                                    fecha[0] = c.getTime();
+                                                                                    hora[0] = c.getTime();
                                                                                     Horario horario = new Horario();
                                                                                     horario.setHospital(hospital);
                                                                                     horario.setServicio(servicio);
@@ -179,9 +182,6 @@ public class HorariosActivity extends AppCompatActivity {
                                                                                     horario.setFecha(dateformat.format(fecha[0]));
                                                                                     horario.setHora(timeformat.format(hora[0]));
                                                                                     listHorarios.add(horario);
-                                                                                    c.add(Calendar.HOUR, 2);
-                                                                                    fecha[0] = c.getTime();
-                                                                                    hora[0] = c.getTime();
                                                                                 } else break;
                                                                             }
                                                                             lvHorarios.setAdapter(new HorariosAdapter(HorariosActivity.this, listHorarios));

@@ -2,8 +2,10 @@ package com.aplicacion.essalud;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import com.aplicacion.essalud.adapters.DetalleCitaAdapter;
 import com.aplicacion.essalud.models.ItemCita;
 import com.aplicacion.essalud.models.database.LocalDB;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +34,7 @@ import java.util.Map;
 
 import static com.aplicacion.essalud.methods.Methods.decrypt;
 import static com.aplicacion.essalud.methods.Methods.encrypt;
+import static com.aplicacion.essalud.methods.Methods.showSnackBar;
 
 public class DetalleCitaActivity extends AppCompatActivity {
 
@@ -130,6 +134,17 @@ public class DetalleCitaActivity extends AppCompatActivity {
                                 put("PACIENTE_ID", PacienteId);
                             }});
                 }
+                showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Se ha reservado tu cita", Snackbar.LENGTH_LONG));
+                getIntent().replaceExtras(new Bundle());
+                startActivity(new Intent(DetalleCitaActivity.this, CitasActivity.class));
+            }
+        });
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSnackBar(Snackbar.make(findViewById(android.R.id.content), "Reserva Cancelada", Snackbar.LENGTH_LONG));
+                getIntent().replaceExtras(new Bundle());
+                startActivity(new Intent(DetalleCitaActivity.this, HorariosActivity.class));
             }
         });
     }

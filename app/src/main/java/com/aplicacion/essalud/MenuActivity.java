@@ -39,6 +39,7 @@ public class MenuActivity extends AppCompatActivity {
         cvActividades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(MenuActivity.this, CitasActivity.class));
             }
         });
     }
